@@ -1,0 +1,126 @@
+
+<p appCostumerDirective class="d-flex justify-content-center">“Always deliver more than expected.”</p>
+<form class="form-inline" style="background-color: cadetblue;">
+  <input class="form-control" name="searchInput" placeholder="Search" #searchInput="ngModel" [(ngModel)]="searchText" style="width: 80%;">
+  <button class="btn btn-outline-primary" (click)="searchText=''">X</button>
+</form>
+<table class="table table-sm table-bordered" style="background-color: goldenrod;">
+  <thead>
+    <th>SupplierId </th> 
+    <th> Company Name </th>
+    <th> Contact Name </th>
+     <th> Address </th>
+     <th> Phone </th>
+     <th> Email </th>
+     <th> update  </th>
+     <th> delete  </th>
+
+    <th></th>
+  </thead>
+ 
+    <tr class="table-dark font-style"  style="font-style: oblique;" *ngFor="let item of showInfo()">
+
+      <td> {{item.SupplierId}} </td> 
+      <td> {{item.CompanyName}} </td>
+      <td> {{item.ContactName}}  </td>
+       <td> 
+        {{item.Address}}
+      
+       </td>
+       <td> 
+        {{item.Phone}}
+      
+       </td>
+       <td> 
+        {{item.Email}}
+      
+       </td>
+      
+        <td>
+            <button class="btn-success" (click)="updateEntity(item)">update</button>
+        </td>
+        <td>
+          <button class="btn-danger" (click)="deleteEntity(item)">delete</button>
+        </td>
+    </tr>
+  
+</table>
+
+
+<div class="row">
+  <div class="col-md-5">
+    <form novalidate (ngSubmit)="submitInfo(supForm , actionType)" style="background-color:rgb(136, 106, 165);">
+      
+      <div class="form-group">
+        <label>SupplierId:</label>
+        <input  class="form-control" [(ngModel)]="supForm.SupplierId" name="SupplierId" type="text" [disabled]="true" />
+       
+      </div> 
+
+      <div class="form-group">
+        <label>CompanyName:</label>
+        <input #Name="ngModel" class="form-control" [(ngModel)]="supForm.CompanyName" name="CompanyName" type="text"  required/>
+        <div *ngIf="Name.dirty||Name.invalid"> Pleace Inter Your Company Name</div>
+
+      </div>
+
+      <div class="form-group">
+        <label>ContactName:</label>
+        <input  #ContactName="ngModel" class="form-control" [(ngModel)]="supForm.ContactName" name="ContactName" type="text"required />
+        <div *ngIf="ContactName.errors?.required">
+          ContactName Does Not Empty
+      </div>
+
+      </div>
+
+      <div class="form-group">
+        <label>Address:</label>
+         <input  #Address="ngModel" class="form-control" [(ngModel)]="supForm.Address" name="Address" type="text" required />
+         <div *ngIf="Address.errors?.required">
+          Address Is required
+      </div>
+      </div>
+
+      <div class="form-group">
+        <label>Phone:</label>
+        <input #Phone="ngModel" class="form-control" [(ngModel)]="supForm.Phone" name="Phone" type="text" minlength="8" maxlength="11" /> 
+        <div *ngIf="Phone.errors?.minlength">
+          Charecter of Phone Must Be more than 3
+          </div>
+
+          <div *ngIf="Phone.errors?.maxlength">
+            Charecter of Phone Must Be less than 50
+            </div>
+      </div>
+
+      <div class="form-group">
+        <label>Email:</label>
+        <input class="form-control" [(ngModel)]="supForm.Email" name="Email" type="text" />
+      </div>
+
+      <div class="col-md-5">
+        <select class="form-control" [(ngModel)]="actionType" name="actionType" (ngChangeModel)="actionType=$event">
+          <option [value]="1">Insert</option>
+          <option [value]="2">Update</option>
+          <option [value]="3">Delete</option>
+        </select>
+    
+      </div>
+
+      <div></div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary"> Submit </button> 
+      </div>
+
+    </form>
+
+  </div>
+  
+</div>
+
+
+
+
+
+ 

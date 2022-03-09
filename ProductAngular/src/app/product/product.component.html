@@ -1,0 +1,148 @@
+
+ <p appProductFor class="d-flex justify-content-center">“Make every detail perfect and limit the number of details to perfect.” </p>
+<form class="form-inline" style="background-color: rgb(137, 218, 219);">
+  <input class="form-control" name="searchInput" placeholder="Search" #searchInput="ngModel" [(ngModel)]="searchText" style="width: 80%;">
+  <button class="btn btn-outline-primary" (click)="searchText=''">X</button>
+</form>
+<table class="table table-sm table-bordered" style="background-color: rgb(228, 188, 88);">
+  <thead>
+    
+      <th> ProductId </th>
+       <th> ProductName </th>
+       <th> PurchaseDate </th>
+       <th> ProductAvailable </th>
+        <th> ContactName </th>
+        <th> Quantity </th>
+        <th> UnitPrice </th>
+        <th> SalesUnitPrice </th>
+        <th> Photos </th>
+
+       <th> update  </th>
+       <th> delete  </th>
+       
+       <th></th>
+    
+  </thead>
+
+    <tr *ngFor="let item of showInfo()">
+      <td> {{item.ProductId}} </td> 
+      <td> {{item.ProductName}} </td>
+      <td> {{ item.PurchaseDate | date:'yyyy-MM-dd'}} </td>
+       <td> 
+         <input type="checkbox"   [checked]="item.ProductAvailable" />
+       </td>
+       <td> {{item.ContactName}} </td>
+       <td> {{item.Quantity}} </td>
+       <td> {{item.UnitPrice}} </td>
+       <td> {{item.SalesUnitPrice}} </td>
+
+       <td> 
+         <img src="{{item.Photos}}" width="50" height="50" /> 
+       </td>
+
+
+        <td>
+            <button class="btn-info" (click)="updateEntity(item)">update</button>
+        </td>
+
+        <td>
+          <button class="btn-danger" (click)="deleteEntity(item)">delete</button>
+        </td>
+    </tr>
+  </table>
+
+
+
+  <div class="row">
+    <div class="col-md-5">
+      <form novalidate (ngSubmit)="submitInfo(productFrom , actionType)" style="background-color: rgb(81, 163, 163);">
+        
+        <div class="form-group">
+          <label>ProductId:</label>
+          <input  class="form-control" [(ngModel)]="productFrom.ProductId" name="ProductId" type="text" [disabled]="true" />
+         
+        </div> 
+  
+        <div class="form-group">
+          <label>ProductName:</label>
+          <input #ProductName="ngModel" class="form-control" [(ngModel)]="productFrom.ProductName" name="ProductName" type="text" required  />
+          <div *ngIf="ProductName.dirty||ProductName.invalid">  Inter Your ProductName</div>
+        </div>
+  
+        <div class="form-group">
+          <label>PurchaseDate:</label>
+          <input class="form-control" type="date" name="PurchaseDate" [ngModel] ="editDate | date:'yyyy-MM-dd'" (ngModelChange)="editDate = $event">
+        </div>
+
+        <div class="form-group">
+          <label>ProductAvailable:</label>
+          <input  [(ngModel)]="productFrom.ProductAvailable" type="checkbox" name="ProductAvailable" />
+        </div>
+  
+        <div class="form-group">
+          <label>ContactName:</label>
+          <select class="form-control" [(ngModel)]="productFrom.SupplierId" name="SupplierId" style="width: 100px;   background-color: transparent;color:blue; ">
+            <option *ngFor="let item of getSupplierList()" [value]="item.SupplierId" (ngChangeModel)="productFrom.SupplierId=$event"> {{item.ContactName}}</option>
+          </select>
+        </div>
+  
+        <div class="form-group">
+          <label>Quantity:</label>
+          <input  #Quantity="ngModel" class="form-control" [(ngModel)]="productFrom.Quantity" name="Quantity" type="text"  required/>
+          <div *ngIf="Quantity.errors?.required">
+            Enter Quantity Number.
+        </div>
+  
+
+        </div>
+        
+        <div class="form-group">
+          <label>UnitPrice:</label>
+          <input #UnitPrice="ngModel" class="form-control" [(ngModel)]="productFrom.UnitPrice" name="UnitPrice" type="text" minlength="25000" maxlength="90000" />
+          <div *ngIf="UnitPrice.errors?.minlength">
+            Charecter of UnitPrice Must Be more than 25000
+            </div>
+  
+            <div *ngIf="UnitPrice.errors?.maxlength">
+              Charecter of UnitPrice Must Be less than 90000
+              </div>
+        </div>
+        
+        <div class="form-group">
+          <label>SalesUnitPrice:</label>
+          <input class="form-control" [(ngModel)]="productFrom.SalesUnitPrice" name="SalesUnitPrice" type="text" />
+        </div>
+        
+        <div class="media">
+          <input class="form-control" type="file" id="Photos" (change)="upload($event)" name="Photos" />
+          <img  class="mr-3" src="{{productFrom.Photos}}" width="50" height="50"/>
+        </div>
+  
+        <div class="col-md-5">
+          <select class="form-control" [(ngModel)]="actionType" name="actionType" (ngChangeModel)="actionType=$event">
+            <option [value]="1">Insert</option>
+            <option [value]="2">Update</option>
+            <option [value]="3">Delete</option>
+          </select>
+      
+        </div>
+        
+        <div></div>
+  
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary"> submit </button>
+        </div>
+  
+      </form>
+  
+    </div>
+    
+  </div>
+  
+
+
+
+
+
+
+  
