@@ -1,9 +1,9 @@
 INSTALLATION
 STEP - 1
-Extract  and webNoteManagementByAngular file.
+Extract  and ProductAngular file.
 
 ##STEP - 2
-Run WebApiNoteManagement on Visual Studio
+Run ProductAngular on Visual Studio
 
 ##STEP - 3
 Open Package Manager Console
@@ -11,12 +11,12 @@ Run the command : Update-Database
 note: if occur any error please check connection string form appsettings.json
 
 ##STEP - 4
-Run WebApiNoteManagement form IIS Express
+Run ProductAngular form IIS Express
 
 For Angular Part:
 
 ##STEP - 1
-Open webNoteManagementByAngular
+Open ProductAngular
 
 ##STEP - 2
 Open CMD form this folder
@@ -27,7 +27,7 @@ Run the command : npm install
 ##STEP - 4
 After finish npm install Run Command : ng serve --open
 
-Register a new user and signin.
+
 
 
 Technologies
